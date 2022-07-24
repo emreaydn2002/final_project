@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+
+    <changeSet id="0001" author="emre.aydin">
+        <createTable tableName="customer">
+            <column name="id" type="number(15)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="customer_name" type="varchar(255)"/>
+            <column name="customer_surname" type="varchar(255)"/>
+            <column name="subscriber_number" type="varchar(255)"/>
+
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0002" author="emre.aydin">
+        <createTable tableName="bill">
+            <column name="id" type="number(15)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="bill_number" type="varchar(255)"/>
+
+            <column name="customer_id" type="number(15)">
+                <constraints primaryKey="false"
+                             nullable="false"
+                             foreignKeyName="bill_fk1"
+                             referencedTableSchemaName="public"
+                             referencedTableName="customer"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="amounth_of_bill" type="number(10,2)"/>
+            <column name="bill_process_date"
+                    type="timestamp"
+                    defaultValueComputed="current_timestamp"/>
+
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="0003" author="emre.aydin">
+        <createTable tableName="payment" schemaName="public">
+            <column name="id" type="number(15)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="customer_id" type="number(15)">
+                <constraints primaryKey="false"
+                             nullable="false"
+                             foreignKeyName="payment_fk1"
+                             referencedTableSchemaName="public"
+                             referencedTableName="customer"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="payment_process_date"
+                    type="timestamp"
+                    defaultValueComputed="current_timestamp"/>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp" defaultValueComputed="current_timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

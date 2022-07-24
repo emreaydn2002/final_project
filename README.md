@@ -1,2 +1,2 @@
-# final_project
-Backend API projecy
+# Backend
+Restful API for EVAM
